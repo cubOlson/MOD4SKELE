@@ -1,0 +1,16 @@
+
+mixin vakidationErrorSummary(errors)
+    if errors 
+        div(role='alert')
+            p The following error(s) ocurred: 
+            ul 
+                each error in errors 
+                    li= error 
+
+mixin field(labelText, fieldName, fieldValue, fieldType = 'text', placeholder = null)
+    div()
+        label(for=fieldName)= labelText
+        if fieldType === 'textarea'
+            textarea(id=fieldName name=fieldName rows='5')= fieldValue
+        else 
+            

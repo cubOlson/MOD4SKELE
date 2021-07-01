@@ -5,7 +5,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { sequelize } = require('./db/models');
 const session = require('express-session');
+const { sessionSecret } = require('./config');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const { restoreUser } = require('./auth');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
@@ -35,6 +37,7 @@ app.use(
 
 // create Session table if it doesn't already exist
 store.sync();
+app.use(restoreUser);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -53,6 +56,7 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  return null;
 });
 
 module.exports = app;

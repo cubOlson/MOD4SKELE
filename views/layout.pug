@@ -1,18 +1,21 @@
 doctype html
 html
   head
-      block head
-        title="Cub's Practice App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    script(src='/javascripts/navbar.js' type="module")
+    block head
+      title="Cub's Practice App"
+      link(rel='stylesheet' href='/stylesheets/reset.css')
   body
     nav 
       a(href='/') The Weather 
       if locals.authenticated 
-        span Welcome #{user.username}!
+        span(id='welcomeMessage') Welcome #{user.username}!
         form(action='/users/logout' method='post')
-          button(type='submit') Logout
-      else 
-        span 
-          a(href='/users/login') Login 
-          a(href='/users/register') Register
+          button(type='submit' id='logoutButton') Logout
+      else
+          span(class='navbar-text px-4')
+            a(class='btn btn-sm btn-dark mr-2' href='/users/login') Login
+            a(class='btn btn-sm btn-dark' href='/users/register') Register
     block content

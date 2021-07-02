@@ -1,12 +1,12 @@
-var express = require('express');
+const express = require('express');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 const { User } = require('../db/models');
-const {csrfProtection, asyncHandler } = require('./utils');
+const { csrfProtection, asyncHandler } = require('./utils');
 const { loginUser, logoutUser } = require('../auth');
 
-var router = express.Router();
+const router = express.Router();
 
 const userValidators = [
   check('username')
@@ -66,7 +66,6 @@ router.get('/register', csrfProtection, (req, res) => {
     user,
     csrfToken: req.csrfToken(),
   });
-
 });
 
 router.post('/register', 
@@ -143,10 +142,10 @@ asyncHandler(async(req, res) => {
   });
 }));
 
-router.post('/logout', asyncHandler(async(req, res) => {
+router.post('/logout', (req, res) => {
   logoutUser(req, res);
-  res.redirect('/users/login');
-}));
+  res.redirect('/');
+});
 
 
 

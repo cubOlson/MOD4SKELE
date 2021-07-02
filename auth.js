@@ -1,47 +1,47 @@
 const db = require('./db/models');
 
 const loginUser = (req, res, user) => {
-    req.session.auth = { userId: user.id }
-}
+    req.session.auth = {
+      userId: user.id,
+    };
+  };
 
-const logoutUser = (req, res) => {
+  const logoutUser = (req, res) => {
     delete req.session.auth;
-}
+  };
 
-const requireAuth = (req, res, next) => {
+  const requireAuth = (req, res, next) => {
     if (!res.locals.authenticated) {
-        return res.redirect('/users/login');
+      return res.redirect('/user/login');
     }
-    next()
-    return null;
-}
+    return next();
+  };
 
-const restoreUser = async (req, res, next) => {
-
+  const restoreUser = async (req, res, next) => {
+    // Log the session object to the console
+    // to assist with debugging.
+    console.log(req.session);
+  
     if (req.session.auth) {
-        const { userId } = req.session.auth;
-
-        try {
-            const user = await db.User.findByPk(userId);
-
-            if (user) {
-                res.locals.authenticated = true;
-                res.locals.user = user;
-                next();
-                return null;
-            }
-        } catch (err){
-            res.locals.authenticated = false;
-            next(err)
-            return null;
+      const { userId } = req.session.auth;
+  
+      try {
+        const user = await db.User.findByPk(userId);
+  
+        if (user) {
+          res.locals.authenticated = true;
+          res.locals.user = user;
+          next();
         }
-    } else {
+      } catch (err) {
         res.locals.authenticated = false;
-        next();
-        return null;
+        next(err);
+      }
+    } else {
+      res.locals.authenticated = false;
+      next();
     }
-}
-
+  };
 module.exports = {
     loginUser,
     logoutUser,

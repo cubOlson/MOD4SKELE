@@ -18,13 +18,12 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(sessionSecret));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
-
 app.use(
   session({
     name: 'sidSid.sid',
@@ -34,6 +33,7 @@ app.use(
     resave: false,
   })
 );
+
 
 // create Session table if it doesn't already exist
 store.sync();
@@ -56,7 +56,6 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-  return null;
 });
 
 module.exports = app;

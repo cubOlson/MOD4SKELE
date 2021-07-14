@@ -1,16 +1,46 @@
 window.addEventListener('DOMContentLoaded', async(event) => {
     console.log('DOM fully loaded and parsed');
 
-    const theWeather = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Chattanooga&appid=f379b3857c328f3085b067f960c64d13', { lat: 35.0456, lon: -85.3097, appid: 'f379b3857c328f3085b067f960c64d13'}).then(response => response.json());
-    const { clouds, coord, main, name, sys, timezone, visibility, weather, wind } = theWeather;
     const theDiv = document.getElementById('generic');
-    
+
+    //-- GEOLOCATION --------------------------------------
+    const geoLoDiv  = document.getElementById("geoLo");
+
+    let lat;
+    let lon;
+    let theWeather;
+    function getLocation() {
+        console.log('IN FIRST')
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        geoLoDiv.innerHTML = "The Browser Does not Support Geolocation";
+      }
+    }
+    async function showPosition(position) {
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
+        theWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=f379b3857c328f3085b067f960c64d13`).then(response => response.json());
+        geoLoDiv.innerHTML = 'Coordinates fetched'
+        afterFetch(theWeather);
+    }
+    function showError(error) {
+      if(error.PERMISSION_DENIED){
+        geoLoDiv.innerHTML = "Permission denied, no weather for you.";
+      }
+    }
+    getLocation();
+
+    //-- GEOLOCATION --------------------------------------
+
+    function afterFetch(theWeather){    
+
+    const { clouds, coord, main, name, sys, timezone, visibility, weather, wind } = theWeather;
 
     //-- CLOUDS ----------------------------------------
     const cloudDiv = document.getElementById('clouds');
 
     let cloudInfo;
-    console.log('BEFORE SWITCH', clouds.all)
 
     if(clouds.all) {
         if (clouds.all < 11) {
@@ -58,7 +88,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         </div>
     `;
 
-    theDiv.innerHTML = weatherDisplay;
+    theDiv.innerHTML = weatherDisplay;}
 
     console.log('WEATHER', theWeather)
 });

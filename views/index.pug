@@ -8,11 +8,49 @@ append head
 
 block content
   h1= title
-  div#geoLo
-  div#clouds
-  div#pressure
-  div#humidity
-  div#temp
-  div#location
-  div#generic
-  button#refreshWeather Refresh
+  #weatherInfo
+    #geoLo
+    #clouds
+    #pressure
+    #humidity
+    #temp
+    #location
+    #generic
+    button#refreshWeather Refresh
+  #formResults
+    #checkbox 
+    #radio 
+    #color 
+    #range
+  // Checkbox form
+  form
+    input#vehicle1(type='checkbox' name='vehicle1' value='Bike')
+    label(for='vehicle1')  I have a bike
+    br
+    input#vehicle2(type='checkbox' name='vehicle2' value='Car')
+    label(for='vehicle2')  I have a car
+    br
+    input#vehicle3(type='checkbox' name='vehicle3' value='Boat')
+    label(for='vehicle3')  I have a boat
+  // Radio Form
+  form
+    input#gull(type='radio' name='bird_type' value='gull')
+    label(for='gull') Gull
+    br
+    input#crow(type='radio' name='bird_type' value='crow')
+    label(for='crow') Crow
+    br
+    input#grakling(type='radio' name='bird_type' value='grakling')
+    label(for='javascript') Grakling
+    br
+    input#owl(type='radio' name='bird_type' value='owl')
+    label(for='owl') Owl
+  // Color Picker
+  form
+    label(for='favcolor') Select your favorite color:
+    input#favcolor(type='color' name='favcolor')
+  // Slider Picker
+  form
+    label(for='vol') Volume (between 0 and 50):
+    input#vol(type='range' name='vol' min='0' max='50')
+

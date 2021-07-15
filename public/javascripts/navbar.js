@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
 
     function afterFetch(theWeather){    
 
-    const { clouds, main, name, sys, timezone, visibility, weather, wind } = theWeather;
+    const { clouds, main, name, sys, visibility, weather, wind } = theWeather;
 
     //-- CLOUDS ----------------------------------------
     const cloudDiv = document.getElementById('clouds');
@@ -130,6 +130,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
 
         const locInfo = `
             <div>${name}, ${sys.country}<div>
+            <div>${weather[0].main} (${weather[0].description})</div>
             <div>Daytime Hours: ${sunrise} - ${sunset}<div>
         `;
 

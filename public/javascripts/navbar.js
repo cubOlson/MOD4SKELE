@@ -141,8 +141,6 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         <div>
             <ul>
                 <li>VISIBILITY: ${visibility}</li>
-                <li>WEATHER: ${weather[0].main}</li>
-                <li>DESCRIPTION: ${weather[0].description}</li>
                 <li>WINDSPEED: ${wind.speed}</li>
             </ul>
         </div>

@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
             } else if (main.pressure > 1030) {
                 pressureInfo = 'High pressure, stability possible'
             } else {
-                pressureInfo = 'Pressure is within normal range'
+                pressureInfo = 'Pressure is within normal range. Stability likely.'
             }
         };
 

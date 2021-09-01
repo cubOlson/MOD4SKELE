@@ -20,7 +20,7 @@ const loginUser = (req, res, user) => {
   const restoreUser = async (req, res, next) => {
     // Log the session object to the console
     // to assist with debugging.
-    console.log(req.session);
+    console.log('SESSION_______________', req.session);
   
     if (req.session.auth) {
       const { userId } = req.session.auth;

@@ -8,8 +8,14 @@ append head
 
 block content
   h1= title
+  input#fetchCode(hidden=true value=APISecret)
   #Background
     #weatherInfo
+      form#searchForm
+        input(type='text' class='weatherField' placeholder='Ex: Oklahoma City' required)
+        input(type='text' class='weatherField' placeholder='Ex: OK')
+        input(type='text' class='weatherField' placeholder='Ex: US')
+        button#searchButton Submit
       #geoLo.weatherField
       #clouds.weatherField
       #pressure.weatherField

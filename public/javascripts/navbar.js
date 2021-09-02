@@ -1,7 +1,9 @@
+
 window.addEventListener('DOMContentLoaded', async(event) => {
     console.log('DOM fully loaded and parsed');
 
     const theDiv = document.getElementById('generic');
+    const fetchCode = document.getElementById('fetchCode').value;
 
     //-- GEOLOCATION --------------------------------------
     const geoLoDiv  = document.getElementById("geoLo");
@@ -19,9 +21,18 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     async function showPosition(position) {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        theWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=f379b3857c328f3085b067f960c64d13`).then(response => response.json());
-        geoLoDiv.innerHTML = 'Coordinates fetched'
-        afterFetch(theWeather);
+        console.log('SHOULD NOT SEE THIS ...');
+        theWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${fetchCode}`);
+
+        if (!theWeather.ok){
+            geoLoDiv.innerHTML = '<h2>An error has occurred</h2>';
+            return 
+        } else {
+            theWeather = await theWeather.json();
+        }
+
+        geoLoDiv.innerHTML = '<h2>Coordinates fetched</h2>'
+        return afterFetch(theWeather);
     }
     function showError(error) {
       if(error.PERMISSION_DENIED){
@@ -30,10 +41,48 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     }
     getLocation();
 
+    // Re-fetch the weather
     const refreshButton = document.getElementById('refreshWeather');
 
     refreshButton.addEventListener('click', event => {
         getLocation()
+    });
+    // --------------------------------------------
+    // Enable location searching
+    const searchForm = document.getElementById('searchForm');
+
+    searchForm.addEventListener('submit', async(event) => {
+        console.log('AAAND THIS')
+        event.preventDefault()
+    // Build request string
+        const inputArr = event.target.elements;
+        let searchString = 'https://api.openweathermap.org/data/2.5/weather?q='
+
+        if (inputArr[0].value){
+            searchString = searchString.concat(inputArr[0].value)
+        }
+        if (inputArr[1].value){
+            searchString = searchString.concat(`,${inputArr[1].value}`)
+        }
+        if (inputArr[2].value){
+            searchString = searchString.concat(`,${inputArr[2].value}`)
+        }
+
+        searchString = searchString.concat(`&appid=${fetchCode}`);
+
+        console.log(searchString)
+
+    //Fetch request
+        let searchWeather = await fetch(searchString);
+        console.log(searchWeather);
+        if (!searchWeather.ok) {
+            geoLoDiv.innerHTML = '<h2>Search has failed. Try again.</h2>';
+            return
+        } else {
+            searchWeather = await searchWeather.json();
+        }
+
+        return afterFetch(searchWeather);
     });
 
     //-- GEOLOCATION --------------------------------------
@@ -77,11 +126,11 @@ window.addEventListener('DOMContentLoaded', async(event) => {
 
         if (main.pressure) {
             if (main.pressure < 1000) {
-                pressureInfo = 'Low pressure, instability possible'
+                pressureInfo = '<h2>Low pressure, instability possible</h2>'
             } else if (main.pressure > 1030) {
-                pressureInfo = 'High pressure, stability possible'
+                pressureInfo = '<h2>High pressure, stability possible</h2>'
             } else {
-                pressureInfo = 'Pressure is within normal range. Stability likely.'
+                pressureInfo = '<h2>Pressure is within normal range. Stability likely.</h2>'
             }
         };
 
@@ -101,10 +150,8 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         const maxF = Math.round(maxC * (9/5) + 32);
 
         const tempInfo = `
-            <div>
-                <h2>Current Temp: ${tempC}C / ${tempF}F<h2>
-                <h2>Range: ${minC}C / ${minF}F - ${maxC}C / ${maxF}F<h2>
-            <div>
+                <h2>Current Temp: ${tempC}C / ${tempF}F</h2>
+                <h2>Range: ${minC}C / ${minF}F - ${maxC}C / ${maxF}F</h2>
         `;
 
         tempDiv.innerHTML = tempInfo;
@@ -114,9 +161,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         const humDiv = document.getElementById('humidity');
 
         const humInfo = `
-            <div>
-                <h2>Humidity: ${main.humidity}%<h2>
-            <div>
+                <h2>Humidity: ${main.humidity}%</h2>
         `;
 
         humDiv.innerHTML = humInfo;
@@ -129,21 +174,17 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         const sunset = new Date(sys.sunset * 1000).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
 
         const locInfo = `
-            <div>${name}, ${sys.country}<div>
+            <div>${name}, ${sys.country}</div>
             <div>${weather[0].main} (${weather[0].description})</div>
-            <div>Daytime Hours: ${sunrise} - ${sunset}<div>
+            <div>Daytime Hours: ${sunrise} - ${sunset}</div>
         `;
 
         locDiv.innerHTML = locInfo;
     //-- Location -------------------------------------------
 
     const weatherDisplay = `
-        <div>
-            <ul>
-                <li>VISIBILITY: ${visibility}</li>
-                <li>WINDSPEED: ${wind.speed}</li>
-            </ul>
-        </div>
+                <div>VISIBILITY: ${visibility}</div>
+                <div>WINDSPEED: ${wind.speed}</div>
     `;
 
     theDiv.innerHTML = weatherDisplay;}

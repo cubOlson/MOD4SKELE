@@ -2,8 +2,11 @@
 window.addEventListener('DOMContentLoaded', async(event) => {
     console.log('DOM fully loaded and parsed');
 
-    const theDiv = document.getElementById('generic');
+    //secret
     const fetchCode = document.getElementById('fetchCode').value;
+    //grab rock image div
+    const rockBox = document.getElementById('rockContainer');
+    const rock = document.getElementById('rock');
 
     //-- GEOLOCATION --------------------------------------
     const geoLoDiv  = document.getElementById("geoLo");
@@ -99,15 +102,22 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     if(clouds.all) {
         if (clouds.all < 11) {
             cloudInfo = 'Clear skies'
+            rock.style.filter = "brightness(100%)"
         } else if (clouds.all > 10 && clouds.all < 26) {
             cloudInfo = 'Small clouds'
+            rock.style.filter = "brightness(80%)"
         } else if (clouds.all > 25 && clouds.all < 51) {
             cloudInfo = 'Partly Cloudy'
+            rock.style.filter = "brightness(70%)"
         } else if (clouds.all > 50 && clouds.all < 76) {
             cloudInfo = 'Moderately Cloudy'
+            rock.style.filter = "brightness(60%)"
         } else {
             cloudInfo = 'Heavy Clouds'
+            rock.style.filter = "brightness(50%)"
         }
+    } else {
+        cloudInfo = 'No data'
     };
 
     const cloudDisplay = `
@@ -181,13 +191,24 @@ window.addEventListener('DOMContentLoaded', async(event) => {
 
         locDiv.innerHTML = locInfo;
     //-- Location -------------------------------------------
+    //-- Generic Info -------------------------------------
+    const theDiv = document.getElementById('generic');
 
     const weatherDisplay = `
                 <div>VISIBILITY: ${visibility}</div>
                 <div>WINDSPEED: ${wind.speed}</div>
     `;
+    
+    let x = wind.speed;
+
+    // switch(wind.speed) {
+    //     case (x < 1):
+
+    // }
 
     theDiv.innerHTML = weatherDisplay;}
+
+    //-- Generic Info --------------------------------------
 
     console.log('WEATHER', theWeather)
 });

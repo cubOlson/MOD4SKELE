@@ -44,3 +44,43 @@ h1 {
 #refreshWeather {
     max-width: 100px;
 }
+
+#rockContainer {
+    width: 100px;
+    height: 300px;
+    transform-origin: top center;
+    animation-duration: 1s;
+    animation-name: rockSwing;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes rockSwing {
+    from {
+        transform: rotate(20deg);
+    }
+    50% {
+        transform: rotate(-20deg);
+    }
+    to {
+        transform: rotate(20deg);
+    }
+}
+
+#rock {
+    width: 100px;
+    height: 100px;
+    background: red;
+    border-radius: 50%;
+    position: relative;
+    top: 200px;
+}
+
+#string {
+    width: 10px;
+    height: 200px;
+    background: yellow;
+    position: relative;
+    top: -100px;
+    left: 45px;
+}

@@ -5,6 +5,7 @@ append head
   link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module")
+  script(src="/javascripts/rockPhysics.js" type="module")
 
 block content
   h1= title
@@ -24,6 +25,9 @@ block content
       #location.weatherField
       #generic.weatherField
       button#refreshWeather Refresh
+    #rockContainer 
+      #rock
+      #string
   //- #formResults
   //-   #checkbox 
   //-   #radio 

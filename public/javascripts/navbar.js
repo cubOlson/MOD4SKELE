@@ -1,6 +1,5 @@
 
 window.addEventListener('DOMContentLoaded', async(event) => {
-    console.log('DOM fully loaded and parsed');
 
     //secret
     const fetchCode = document.getElementById('fetchCode').value;
@@ -24,7 +23,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     async function showPosition(position) {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        console.log('SHOULD NOT SEE THIS ...');
+
         theWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${fetchCode}`);
 
         if (!theWeather.ok){
@@ -55,7 +54,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     const searchForm = document.getElementById('searchForm');
 
     searchForm.addEventListener('submit', async(event) => {
-        console.log('AAAND THIS')
+
         event.preventDefault()
     // Build request string
         const inputArr = event.target.elements;
@@ -77,7 +76,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
 
     //Fetch request
         let searchWeather = await fetch(searchString);
-        console.log(searchWeather);
+
         if (!searchWeather.ok) {
             geoLoDiv.innerHTML = '<h2>Search has failed. Try again.</h2>';
             return
@@ -199,16 +198,22 @@ window.addEventListener('DOMContentLoaded', async(event) => {
                 <div>WINDSPEED: ${wind.speed}</div>
     `;
     
-    let x = wind.speed;
+    console.log('WIIIND', wind.speed)
+    
+        if (wind.speed < 1) {
+            rockBox.style.animation = 'rockSwing0 1s infinite';
+        } else if (wind.speed < 5 && wind.speed >= 1) {
+            rockBox.style.animation = 'rockSwing1 1s infinite';
+        } else if (wind.speed >= 5 && wind.speed < 10) {
+            rockBox.style.animation = 'rockSwing2 1s infinite';
+        } else if (wind.speed >= 10 && wind.speed < 20) {
+            rockBox.style.animation = 'rockSwing3 1s infinite';
+        } else if (wind.speed >= 20) {
+            rockBox.style.animation = 'rockSwing4 1s infinite';
+        } 
+ 
+    console.log(rockBox.style)
 
-    // switch(wind.speed) {
-    //     case (x < 1):
-
-    // }
-
-    theDiv.innerHTML = weatherDisplay;}
-
-    //-- Generic Info --------------------------------------
-
-    console.log('WEATHER', theWeather)
+    theDiv.innerHTML = weatherDisplay;
+    }
 });

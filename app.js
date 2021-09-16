@@ -26,8 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 const store = new SequelizeStore({ db: sequelize });
 app.use(
   session({
-    name: 'sidSid.sid',
-    secret: 'superSecret',
+    name: 'weatherApp.sid',
+    secret: sessionSecret,
     store,
     saveUninitialized: false,
     resave: false,

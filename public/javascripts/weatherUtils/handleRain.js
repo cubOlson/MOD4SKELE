@@ -1,4 +1,6 @@
-    console.log('WE HERE')
+
+ export function handleRain(){
+     console.log('WE HERE')
     //clear out everything
     const rainBoxes = document.querySelectorAll('.rain');
     const rainFrontRow = document.querySelector('.front-row');
@@ -6,8 +8,6 @@
     rainBoxes.forEach(ele => {
         ele.innerHTML = "";
     });
-
-    console.log('WE PAST')
   
     let increment = 0;
     let drops = "";
@@ -28,3 +28,4 @@
   
     rainFrontRow.innerHTML = drops;
     rainBackRow.innerHTML = backDrops;
+}

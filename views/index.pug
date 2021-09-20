@@ -3,14 +3,18 @@ extends layout
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/raindrops.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module")
-  script(src="/javascripts/rockPhysics.js" type="module")
+  script(src="/javascripts/raindrops.js" type="module")
 
 block content
   h1= title
   input#fetchCode(hidden=true value=APISecret)
   #Background
+    #rainBody.back-row-toggle.splat-toggle
+      .rain.front-row
+      .rain.back-row 
     #weatherInfo
       form#searchForm
         input(type='text' class='weatherField' placeholder='Ex: Oklahoma City' required)

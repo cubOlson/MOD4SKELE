@@ -1,5 +1,5 @@
 
-export function handleLocation(weather, sys){
+export function handleLocation(name, weather, sys){
     const locDiv = document.getElementById('location');
     const sunrise = new Date(sys.sunrise * 1000).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
     const sunset = new Date(sys.sunset * 1000).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})

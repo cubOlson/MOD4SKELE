@@ -85,9 +85,9 @@ handleClouds(clouds);
 handlePTH(main);
 //-- Humidity -----------------------------------------
 //-- Location -------------------------------------------
-handleLocation(weather, sys);
+handleLocation(name, weather, sys);
 //-- Generic Info -------------------------------------
 handleGeneric(visibility, wind);
 //-- Rain ----------------------------------------------
-handleRain();
+handleRain(weather, wind);
 }

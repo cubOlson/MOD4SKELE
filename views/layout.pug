@@ -4,6 +4,7 @@ html
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
     script(src='/javascripts/formHandler.js' type="module")
+    script(src='/javascripts/mainFetch.js' type="module")
     link(rel='preconnect' href='https://fonts.googleapis.com')
     link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
     link(href='https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap' rel='stylesheet')
@@ -19,6 +20,11 @@ html
           button(type='submit' id='logoutButton') Logout
       else
           span(class='navbar-text px-4')
-            a(class='btn btn-sm btn-dark mr-2' href='/users/login') Login
-            a(class='btn btn-sm btn-dark' href='/users/register') Register
+            a.authButton(href='/users/login') Login
+            a.authButton(href='/users/register') Register
+      form#searchForm
+        input(type='text' class='weatherField' placeholder='Ex: Oklahoma City' required)
+        input(type='text' class='weatherField' placeholder='Ex: OK')
+        input(type='text' class='weatherField' placeholder='Ex: US')
+        button#searchButton Submit
     block content

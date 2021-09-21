@@ -37,7 +37,7 @@ html {
     0% {
       transform: translate(0vw, 0vh);
     }
-    100%{
+    90%{
       transform: translate(0vw, 110vh);
     }
   }
@@ -46,7 +46,7 @@ html {
     0% {
       transform: translate(0vw, 0vh);
     }
-    95% {
+    85% {
       transform: translate(10vw, 110vh);
     }
   }
@@ -55,7 +55,7 @@ html {
     0% {
       transform: translate(0vw, 0vh);
     }
-    90% {
+    75% {
       transform: translate(20vw, 110vh);
     }
   }
@@ -64,7 +64,7 @@ html {
     0% {
       transform: translate(0vw, 0vh);
     }
-    85% {
+    50% {
       transform: translate(30vw, 110vh);
     }
   }
@@ -73,14 +73,14 @@ html {
     0% {
       transform: translate(0vw, 0vh);
     }
-    80% {
+    40% {
       transform: translate(50vw, 110vh);
     }
   }
   
   .stem {
-    width: 10px;
-    height: 10px;
+    width: 5px;
+    height: 5px;
     box-sizing: border-box;
     border-radius: 50%;
     margin-left: 7px;

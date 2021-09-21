@@ -17,7 +17,7 @@
       //random number between 98 and 1
       let randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
       //random number between 5 and 2
-      let randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+      let randoFiver = (Math.floor(Math.random() * (3) + 2));
       //increment
       increment += randoFiver;
       //add in a new raindrop with various randomizations to certain CSS properties

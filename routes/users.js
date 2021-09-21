@@ -82,7 +82,7 @@ asyncHandler(async(req, res) => {
   user.hashedPassword = hashedPassword;
   await user.save();
   loginUser(req, res, user);
-  res.redirect('/')
+  return req.session.save(() => res.redirect('/'));
 }));
 
 router.get('/login', csrfProtection, (req, res) => {
@@ -112,7 +112,7 @@ asyncHandler(async(req, res) => {
 
       if (passwordMatch) {
         loginUser(req, res, user);
-        return res.redirect('/');
+        return req.session.save(() => res.redirect('/'));
       }
     }
 
@@ -131,7 +131,7 @@ asyncHandler(async(req, res) => {
 
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
-  res.redirect('/');
+  return req.session.save(() => res.redirect('/'));
 });
 
 

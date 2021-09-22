@@ -11,6 +11,14 @@ block content
   h1= title
   input#fetchCode(hidden=true value=APISecret)
   #Background
+    #userLocations 
+      if userLocations 
+        each location in userLocations 
+          form.userLocationForms(id=location.id)
+            input(type='hidden' value=location.city)
+            input(type='hidden' value=location.state)
+            input(type='hidden' value=location.country)
+            button(type='submit')= location.buttonText
     #rainBody
       .rain.front-row
       .rain.back-row 

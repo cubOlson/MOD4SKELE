@@ -10,7 +10,6 @@ router.get('/', asyncHandler(async(req, res) => {
   let userLocations = null;
 
   if (req.session.auth){
-    console.log('LOGGED IN HIT QUERY');
     const {userId } = req.session.auth;
     userLocations = await UserLocation.findAll({
       where: {
